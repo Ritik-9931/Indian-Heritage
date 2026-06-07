@@ -90,8 +90,6 @@ export const getSingleCity = async (req, res) => {
   }
 };
 
-import City from "../models/City.js";
-
 export const createCity = async (req, res) => {
   try {
     const { cityName, state } = req.body;
