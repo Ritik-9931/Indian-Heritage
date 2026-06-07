@@ -274,3 +274,63 @@ export const deleteReview = async (req, res) => {
     });
   }
 };
+
+export const updateTemple = async (req, res) => {
+  try {
+    const temple = await Temple.findById(req.params.id);
+
+    if (!temple) {
+      return res.status(404).json({
+        message: "Temple not found",
+      });
+    }
+
+    const updatedData = {
+      ...req.body,
+    };
+
+    if (req.body.templeName) {
+      updatedData.slug = req.body.templeName
+        .toLowerCase()
+        .replace(/\s+/g, "-");
+    }
+
+    const updated = await Temple.findByIdAndUpdate(
+      req.params.id,
+      updatedData,
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      temple: updated,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const deleteTemple = async (req, res) => {
+  try {
+    const temple = await Temple.findById(req.params.id);
+
+    if (!temple) {
+      return res.status(404).json({
+        message: "Temple not found",
+      });
+    }
+
+    await Temple.findByIdAndDelete(req.params.id);
+
+    res.status(200).json({
+      success: true,
+      message: "Temple deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
