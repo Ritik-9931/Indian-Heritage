@@ -6,6 +6,8 @@ import {
   getTemples,
   addReview,
   deleteReview,
+  updateTemple,
+  deleteTemple,
 } from "../controller/templeController.js";
 import protect from "../middleware/authMiddleware.js";
 import admin from "../middleware/adminMiddleware.js";
@@ -21,5 +23,9 @@ router.get("/:id", getTempleById);
 router.post("/:id/review", protect, addReview);
 
 router.delete("/:id/review/:reviewId", protect, deleteReview);
+
+router.put("/:id", protect, admin, updateTemple);
+
+router.delete("/:id", protect, admin, deleteTemple);
 
 export default router;
