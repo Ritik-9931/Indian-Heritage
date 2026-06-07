@@ -2,7 +2,11 @@ import City from "../models/City.js";
 
 export const createCity = async (req, res) => {
   try {
-    const { cityName, slug, state } = req.body;
+    const { cityName, state } = req.body;
+
+    const slug = cityName
+      .toLowerCase()
+      .replace(/\s+/g, "-");
 
     const existingCity = await City.findOne({
       cityName,
@@ -26,6 +30,7 @@ export const createCity = async (req, res) => {
       city,
     });
   } catch (error) {
+    console.log("CITY CREATE ERROR:", error); // 👈 IMPORTANT
     res.status(500).json({
       message: error.message,
     });
