@@ -16,7 +16,7 @@ import { fetchCircuits } from "../redux/slices/circuitSlice";
 
 import { fetchRituals } from "../redux/slices/ritualSlice";
 
-import api from "../services/Api";
+import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 const AddTemple = () => {

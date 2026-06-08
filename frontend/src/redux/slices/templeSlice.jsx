@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../services/Api";
+import api from "../../services/api";
 
 export const fetchTemples = createAsyncThunk(
   "temple/fetchTemples",
