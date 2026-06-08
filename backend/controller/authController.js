@@ -109,10 +109,12 @@ export const googleLogin = async (req, res, next) => {
 
     res.json({
       success: true,
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      role: user.role,
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      },
       token: generateToken(user._id),
     });
   } catch (error) {
