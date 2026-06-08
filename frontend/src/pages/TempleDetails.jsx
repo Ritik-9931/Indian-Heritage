@@ -8,6 +8,8 @@ import { useParams, useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
+import TempleMap from "../components/TempleMap";
+
 import {
   MapPin,
   Clock,
@@ -97,6 +99,8 @@ const TempleDetails = () => {
       toast.error("Failed to add review");
     }
   };
+
+  console.log(temple);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-yellow-50 py-10 px-4">
@@ -241,6 +245,17 @@ const TempleDetails = () => {
 
                 <p>Longitude: {temple?.location?.longitude}</p>
               </div>
+
+              {temple?.location?.latitude && temple?.location?.longitude ? (
+                <TempleMap
+                  latitude={Number(temple.location.latitude)}
+                  longitude={Number(temple.location.longitude)}
+                />
+              ) : (
+                <div className="p-6 bg-orange-50 rounded-xl">
+                  Location coordinates not available
+                </div>
+              )}
 
               {/* RATINGS */}
               <div className="mt-6 flex items-center gap-4">

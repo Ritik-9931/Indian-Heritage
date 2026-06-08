@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { ToastContainer } from "react-toastify";
 import "./index.css";
 import App from "./App.jsx";
+import "leaflet/dist/leaflet.css";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 
