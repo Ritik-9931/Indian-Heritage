@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const fetchStates = createAsyncThunk(
   "state/fetchStates",
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/states");
+      const response = await Api.get("/states");
 
       return response.data.states;
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetchSingleState = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const response = await api.get(`/states/${id}`);
+      const response = await Api.get(`/states/${id}`);
 
       return response.data.data;
     } catch (error) {
@@ -36,7 +36,7 @@ export const updateState = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.put(`/states/${id}`, formData, {
+      const response = await Api.put(`/states/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -55,7 +55,7 @@ export const deleteState = createAsyncThunk(
     try {
       const {auth} = thunkAPI.getState();
 
-      await api.delete(`/states/${id}`, {
+      await Api.delete(`/states/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

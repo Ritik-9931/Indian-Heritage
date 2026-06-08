@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const fetchDeities = createAsyncThunk(
   "deity/fetchDeities",
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/deities");
+      const response = await Api.get("/deities");
 
       return response.data.deities;
     } catch (error) {
@@ -29,7 +29,7 @@ export const deleteDeity = createAsyncThunk(
         },
       };
 
-      await api.delete(`/deities/${id}`, config);
+      await Api.delete(`/deities/${id}`, config);
 
       return id;
     } catch (error) {
@@ -44,7 +44,7 @@ export const fetchDeityById = createAsyncThunk(
   "deity/fetchDeityById",
   async (id, thunkAPI) => {
     try {
-      const response = await api.get(`/deities/${id}`);
+      const response = await Api.get(`/deities/${id}`);
       return response.data.deity;
     } catch (error) {
       console.log(error)
@@ -69,7 +69,7 @@ export const updateDeity = createAsyncThunk(
         },
       };
 
-      const response = await api.put(`/deities/${id}`, formData, config);
+      const response = await Api.put(`/deities/${id}`, formData, config);
 
       return response.data.deity;
     } catch (error) {

@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const registerUser = createAsyncThunk(
   "auth/register",
 
   async (userData, thunkAPI) => {
     try {
-      const response = await api.post("/auth/register", userData);
+      const response = await Api.post("/auth/register", userData);
 
       localStorage.setItem("token", response.data.token);
 
@@ -25,7 +25,7 @@ export const loginUser = createAsyncThunk(
 
   async (userData, thunkAPI) => {
     try {
-      const response = await api.post("/auth/login", userData);
+      const response = await Api.post("/auth/login", userData);
 
       localStorage.setItem("token", response.data.token);
 
@@ -45,7 +45,7 @@ export const googleLogin = createAsyncThunk(
 
   async (Credential, thunkAPI) => {
     try {
-      const response = await api.post("/auth/googleLogin", {
+      const response = await Api.post("/auth/googleLogin", {
         token: Credential,
       });
 

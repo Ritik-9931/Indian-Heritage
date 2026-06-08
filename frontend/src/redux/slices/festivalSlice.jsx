@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const fetchFestivals = createAsyncThunk(
   "festival/fetchFestivals",
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/festivals");
+      const response = await Api.get("/festivals");
 
       return response.data.festivals;
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetchSingleFestival = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const { data } = await api.get(`/festivals/${id}`);
+      const { data } = await Api.get(`/festivals/${id}`);
 
       return data;
     } catch (error) {
@@ -43,7 +43,7 @@ export const updateFestival = createAsyncThunk(
           Authorization: `Bearer ${auth.token}`,
         },
       };
-      const { data } = await api.put(`/festivals/${id}`, festivalData, config);
+      const { data } = await Api.put(`/festivals/${id}`, festivalData, config);
 
       return data.festival;
     } catch (error) {
@@ -66,7 +66,7 @@ export const deleteFestival = createAsyncThunk(
         },
       };
 
-      await api.delete(`/festivals/${id}`, config);
+      await Api.delete(`/festivals/${id}`, config);
 
       return id;
     } catch (error) {

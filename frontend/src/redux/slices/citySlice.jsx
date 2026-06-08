@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 // GET ALL CITIES
 export const fetchCities = createAsyncThunk(
@@ -8,7 +8,7 @@ export const fetchCities = createAsyncThunk(
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/cities");
+      const response = await Api.get("/cities");
 
       return response.data;
     } catch (error) {
@@ -22,7 +22,7 @@ export const fetchSingleCity = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const response = await api.get(`/cities/${id}`);
+      const response = await Api.get(`/cities/${id}`);
 
       return response.data.data;
     } catch (error) {
@@ -37,7 +37,7 @@ export const fetchCitiesByState = createAsyncThunk(
 
   async (stateId, thunkAPI) => {
     try {
-      const response = await api.get(`/cities/state/${stateId}`);
+      const response = await Api.get(`/cities/state/${stateId}`);
 
       return response.data.cities;
     } catch (error) {
@@ -52,7 +52,7 @@ export const deleteCity = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      await api.delete(`/cities/${id}`, {
+      await Api.delete(`/cities/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -73,7 +73,7 @@ export const updateCity = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.put(`/cities/${id}`, formData, {
+      const response = await Api.put(`/cities/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

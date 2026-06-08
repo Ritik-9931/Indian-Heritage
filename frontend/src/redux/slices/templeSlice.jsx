@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const fetchTemples = createAsyncThunk(
   "temple/fetchTemples",
@@ -27,7 +27,7 @@ export const fetchTemples = createAsyncThunk(
         query += `&deity=${deity}`;
       }
 
-      const response = await api.get(query);
+      const response = await Api.get(query);
 
       return response.data;
     } catch (error) {
@@ -41,7 +41,7 @@ export const fetchTempleById = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const { data } = await api.get(`/temples/${id}`);
+      const { data } = await Api.get(`/temples/${id}`);
 
       return data;
     } catch (error) {
@@ -57,7 +57,7 @@ export const createTemple = createAsyncThunk(
 
   async (FormData, thunkAPI) => {
     try {
-      const { data } = await api.post("/temples", FormData, {
+      const { data } = await Api.post("/temples", FormData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -79,7 +79,7 @@ export const addTempleReview = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.post(
+      const { data } = await Api.post(
         `/temples/${id}/review`,
         {
           rating,
@@ -108,7 +108,7 @@ export const deleteTempleReview = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.delete(`/temples/${id}/review/${reviewId}`, {
+      const { data } = await Api.delete(`/temples/${id}/review/${reviewId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -129,7 +129,7 @@ export const updateTemple = createAsyncThunk(
     try {
       const { auth } = thunkAPI.getState();
 
-      const { data } = await api.put(`/temples/${id}`, formData, {
+      const { data } = await Api.put(`/temples/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
           "Content-Type": "multipart/form-data",
@@ -148,7 +148,7 @@ export const deleteTemple = createAsyncThunk(
     try {
       const { auth } = thunkAPI.getState();
 
-      await api.delete(`/temples/${id}`, {
+      await Api.delete(`/temples/${id}`, {
         headers: {
           Authorization: `Bearer ${auth.token}`,
         },

@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import api from "../services/api";
+import Api from "../services/Api";
 
 const AddDeity = () => {
   const { token } = useSelector((state) => state.auth);
@@ -27,7 +27,7 @@ const AddDeity = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await api.post("/deities", formData, {
+    await Api.post("/deities", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

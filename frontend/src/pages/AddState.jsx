@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import api from "../services/api";
+import Api from "../services/Api";
 
 
 
@@ -79,7 +79,7 @@ const AddState = () => {
 
 
 
-      const response = await api.post(
+      const response = await Api.post(
         "/states",
         payload,
         {

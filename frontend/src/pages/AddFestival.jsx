@@ -4,7 +4,7 @@ import { useState } from "react";
 
 import { useSelector } from "react-redux";
 
-import api from "../services/api";
+import Api from "../services/Api";
 
 
 
@@ -40,7 +40,7 @@ const AddFestival = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await api.post(
+    await Api.post(
       "/festivals",
       formData,
       {

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
-import api from "../services/api";
 import { fetchTemples } from "../redux/slices/templeSlice";
 import { fetchSingleCircuit } from "../redux/slices/circuitSlice";
+import Api from "../services/Api";
 
 const EditCircuit = () => {
   const { id } = useParams();
@@ -68,7 +68,7 @@ const EditCircuit = () => {
     e.preventDefault();
 
     try {
-      await api.put(
+      await Api.put(
         `/circuits/${id}`,
         {
           ...formData,

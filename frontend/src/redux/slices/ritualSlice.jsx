@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 // GET RITUALS
 export const fetchRituals = createAsyncThunk(
@@ -8,7 +8,7 @@ export const fetchRituals = createAsyncThunk(
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/rituals");
+      const response = await Api.get("/rituals");
 
       return response.data.rituals;
     } catch (error) {
@@ -25,7 +25,7 @@ export const createRitual = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.post("/rituals", ritualData, {
+      const response = await Api.post("/rituals", ritualData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -44,7 +44,7 @@ export const deleteRitual = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      await api.delete(`/rituals/${id}`, {
+      await Api.delete(`/rituals/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -65,7 +65,7 @@ export const updateRitual = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.put(`/rituals/${id}`, formData, {
+      const response = await Api.put(`/rituals/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,7 +84,7 @@ export const fetchRitualById = createAsyncThunk(
   "ritual/fetchRitualById",
   async (id, thunkAPI) => {
     try {
-      const response = await api.get(`/rituals/${id}`);
+      const response = await Api.get(`/rituals/${id}`);
       return response.data.ritual;
     } catch (error) {
       return thunkAPI.rejectWithValue(

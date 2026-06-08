@@ -2,8 +2,8 @@ import {
   createSlice,
   createAsyncThunk,
 } from "@reduxjs/toolkit";
+import Api from "../../services/Api";
 
-import api from "../../services/api";
 
 
 
@@ -15,7 +15,7 @@ export const fetchTempleReviews =
     async (templeId, thunkAPI) => {
       try {
 
-        const response = await api.get(
+        const response = await Api.get(
           `/reviews/temple/${templeId}`
         );
 
@@ -45,7 +45,7 @@ export const createReview =
 
 
 
-        const response = await api.post(
+        const response = await Api.post(
           "/reviews",
           reviewData,
           {

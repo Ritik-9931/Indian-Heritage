@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../../services/api";
+import Api from "../../services/Api";
+
 
 // GET PROFILE
 export const getProfile = createAsyncThunk(
@@ -7,7 +8,7 @@ export const getProfile = createAsyncThunk(
 
   async (token, thunkAPI) => {
     try {
-      const { data } = await api.get("/users/profile", {
+      const { data } = await Api.get("/users/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -29,7 +30,7 @@ export const addFavoriteTemple = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.put(
+      const { data } = await Api.put(
         `/users/favorite/${templeId}`,
         {},
         {
@@ -55,7 +56,7 @@ export const addVisitedTemple = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.put(
+      const { data } = await Api.put(
         `/users/visited/${templeId}`,
         {},
         {
@@ -81,7 +82,7 @@ export const removeFavoriteTemple = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.delete(`/users/favorite/${templeId}`, {
+      const { data } = await Api.delete(`/users/favorite/${templeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -103,7 +104,7 @@ export const removeVisitedTemple = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const { data } = await api.delete(`/users/visited/${templeId}`, {
+      const { data } = await Api.delete(`/users/visited/${templeId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -125,7 +126,7 @@ export const fetchUsers = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.get("/users", {
+      const response = await Api.get("/users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -147,7 +148,7 @@ export const deleteUser = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.delete(`/users/${id}`, {
+      const response = await Api.delete(`/users/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -172,7 +173,7 @@ export const updateUserRole = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.token;
 
-      const response = await api.put(
+      const response = await Api.put(
         `/users/${id}/role`,
         { role },
         {

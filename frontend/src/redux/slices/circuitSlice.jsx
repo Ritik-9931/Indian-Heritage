@@ -1,13 +1,13 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-import api from "../../services/api";
+import Api from "../../services/Api";
 
 export const fetchCircuits = createAsyncThunk(
   "circuit/fetchCircuits",
 
   async (_, thunkAPI) => {
     try {
-      const response = await api.get("/circuits");
+      const response = await Api.get("/circuits");
 
       return response.data.circuits;
     } catch (error) {
@@ -21,7 +21,7 @@ export const fetchSingleCircuit = createAsyncThunk(
 
   async (id, thunkAPI) => {
     try {
-      const { data } = await api.get(`/circuits/${id}`);
+      const { data } = await Api.get(`/circuits/${id}`);
 
       return data;
     } catch (error) {
@@ -44,7 +44,7 @@ export const updateCircuit = createAsyncThunk(
         },
       };
 
-      const { data } = await api.put(`/circuits/${id}`, circuitData, config);
+      const { data } = await Api.put(`/circuits/${id}`, circuitData, config);
 
       return data.circuit;
     } catch (error) {
@@ -65,7 +65,7 @@ export const deleteCircuit = createAsyncThunk(
         },
       };
 
-      await api.delete(`/circuits/${id}`, config);
+      await Api.delete(`/circuits/${id}`, config);
 
       return id;
     } catch (error) {

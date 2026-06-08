@@ -16,8 +16,8 @@ import { fetchCircuits } from "../redux/slices/circuitSlice";
 
 import { fetchRituals } from "../redux/slices/ritualSlice";
 
-import api from "../services/api";
 import { useNavigate } from "react-router-dom";
+import Api from "../services/Api";
 
 const AddTemple = () => {
   const dispatch = useDispatch();
@@ -260,7 +260,7 @@ const AddTemple = () => {
         data.append("images", image);
       });
 
-      await api.post("/temples", data, {
+      await Api.post("/temples", data, {
         headers: {
           Authorization: `Bearer ${token}`,
 

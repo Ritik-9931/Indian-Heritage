@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { fetchStates } from "../redux/slices/stateSlice";
 
-import api from "../services/api";
+import Api from "../services/Api";
 
 const AddCity = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const AddCity = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await api.post("/cities", formData, {
+    await Api.post("/cities", formData, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
