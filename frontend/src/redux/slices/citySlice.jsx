@@ -10,7 +10,7 @@ export const fetchCities = createAsyncThunk(
     try {
       const response = await api.get("/cities");
 
-      return response.data.cities;
+      return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
@@ -42,6 +42,48 @@ export const fetchCitiesByState = createAsyncThunk(
       return response.data.cities;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+  },
+);
+
+export const deleteCity = createAsyncThunk(
+  "city/deleteCity",
+  async (id, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+
+      await api.delete(`/cities/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return id;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Delete failed",
+      );
+    }
+  },
+);
+
+export const updateCity = createAsyncThunk(
+  "city/updateCity",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+
+      const response = await api.put(`/cities/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      return response.data.city;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(
+        error.response?.data?.message || "Update failed",
+      );
     }
   },
 );
@@ -90,6 +132,18 @@ const citySlice = createSlice({
       })
 
       .addCase(fetchSingleCity.fulfilled, (state, action) => {
+        state.singleCity = action.payload;
+      })
+
+      .addCase(deleteCity.fulfilled, (state, action) => {
+        state.cities = state.cities.filter((c) => c._id !== action.payload);
+      })
+
+      .addCase(updateCity.fulfilled, (state, action) => {
+        state.cities = state.cities.map((c) =>
+          c._id === action.payload._id ? action.payload : c,
+        );
+
         state.singleCity = action.payload;
       });
   },

@@ -9,56 +9,23 @@ import {
   Route,
   Users,
   MessageSquare,
+  MapPinCheck,
 } from "lucide-react";
+import { FaCity, FaFeather } from "react-icons/fa";
 
 const AdminPanel = () => {
   const adminCards = [
-    {
-      title: "Add State",
-
-      description: "Manage Indian states for temple locations",
-
-      icon: <MapPinned size={40} />,
-
-      link: "/admin/add-state",
-
-      color: "from-orange-500 to-red-500",
-    },
 
     {
-      title: "Add City",
-
-      description: "Add cities and connect them with states",
-
-      icon: <Building2 size={40} />,
-
-      link: "/admin/add-city",
-
-      color: "from-blue-500 to-indigo-500",
-    },
-
-    {
-      title: "Add Temple",
+      title: "Manage Temple",
 
       description: "Create new temple heritage information",
 
       icon: <Landmark size={40} />,
 
-      link: "/admin/add-temple",
+      link: "/admin/edit/temple",
 
       color: "from-yellow-500 to-orange-500",
-    },
-
-    {
-      title: "Add Deity",
-
-      description: "Manage deity and mythology details",
-
-      icon: <Sparkles size={40} />,
-
-      link: "/admin/add-deity",
-
-      color: "from-pink-500 to-rose-500",
     },
 
     {
@@ -86,18 +53,6 @@ const AdminPanel = () => {
     },
 
     {
-      title: "Add Ritual",
-
-      description: "Manage temple rituals and pooja schedules",
-
-      icon: <Sparkles size={40} />,
-
-      link: "/admin/add-ritual",
-
-      color: "from-amber-500 to-yellow-500",
-    },
-
-    {
       title: "Manage Users",
 
       description: "View and manage portal users",
@@ -110,15 +65,49 @@ const AdminPanel = () => {
     },
 
     {
-      title: "Manage Reviews",
+      title: "Manage Deity",
 
-      description: "Moderate temple reviews and ratings",
+      description: "Moderate temple deity",
 
       icon: <MessageSquare size={40} />,
 
-      link: "/admin/reviews",
+      link: "/admin/edit/deity",
 
       color: "from-gray-700 to-gray-900",
+    },
+
+    {
+      title: "Manage Ritual",
+
+      description: "Moderate temple ritualss",
+
+      icon: <FaFeather size={40} />,
+
+      link: "/admin/edit/ritual",
+
+      color: "from-pink-700 to-pink-900",
+    },
+    {
+      title: "Manage City",
+
+      description: "Moderate temple reviews and ratings",
+
+      icon: <FaCity size={40} />,
+
+      link: "/admin/edit/city",
+
+      color: "from-blue-700 to-blue-900",
+    },
+    {
+      title: "Manage State",
+
+      description: "Moderate temple reviews and ratings",
+
+      icon: <MapPinCheck size={40} />,
+
+      link: "/admin/edit/state",
+
+      color: "from-orange-700 to-orange-900",
     },
   ];
 

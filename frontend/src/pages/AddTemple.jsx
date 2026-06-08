@@ -97,6 +97,12 @@ const AddTemple = () => {
     dispatch(fetchRituals());
   }, [dispatch]);
 
+  useEffect(() => {
+    return () => {
+      previewImages.forEach((img) => URL.revokeObjectURL(img.url));
+    };
+  }, [previewImages]);
+
   // HANDLE INPUT
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -157,19 +163,21 @@ const AddTemple = () => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
-    setImages(files);
+    // store real files
+    setImages((prev) => [...prev, ...files]);
 
-    const previews = files.map((file) => URL.createObjectURL(file));
+    // create previews
+    const newPreviews = files.map((file) => ({
+      url: URL.createObjectURL(file),
+      name: file.name,
+    }));
 
-    setPreviewImages(previews);
+    setPreviewImages((prev) => [...prev, ...newPreviews]);
   };
 
-  const removeImage = (indexToRemove) => {
-    setImages((prev) => prev.filter((_, index) => index !== indexToRemove));
-
-    setPreviewImages((prev) =>
-      prev.filter((_, index) => index !== indexToRemove),
-    );
+  const removeImage = (index) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+    setPreviewImages((prev) => prev.filter((_, i) => i !== index));
   };
 
   // GENERATE SLUG
@@ -674,27 +682,37 @@ const AddTemple = () => {
             <input
               type="file"
               multiple
+              accept="image/*"
               onChange={handleImageChange}
               className="border p-4 rounded-xl w-full bg-gray-50"
             />
-          </div>
 
-          {/* FEATURED */}
-          <div>
-            <label className="flex items-center gap-3 text-lg font-medium">
-              <input
-                type="checkbox"
-                checked={formData.featured}
-                onChange={(e) =>
-                  setFormData({
-                    ...formData,
+            {/* PREVIEW GRID */}
+            {previewImages.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-5">
+                {previewImages.map((img, index) => (
+                  <div
+                    key={index}
+                    className="relative rounded-xl overflow-hidden shadow"
+                  >
+                    <img
+                      src={img.url}
+                      alt="preview"
+                      className="h-32 w-full object-cover"
+                    />
 
-                    featured: e.target.checked,
-                  })
-                }
-              />
-              Featured Temple
-            </label>
+                    {/* REMOVE BUTTON */}
+                    <button
+                      type="button"
+                      onClick={() => removeImage(index)}
+                      className="absolute top-1 right-1 bg-red-600 text-white px-2 rounded-full text-xs"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* BUTTON */}

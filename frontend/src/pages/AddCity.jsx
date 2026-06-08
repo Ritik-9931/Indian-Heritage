@@ -8,29 +8,17 @@ import { fetchStates } from "../redux/slices/stateSlice";
 
 import api from "../services/api";
 
-
-
 const AddCity = () => {
-
   const dispatch = useDispatch();
 
-  const { states = [] } = useSelector(
-    (state) => state.state
-  );
+  const { states = [] } = useSelector((state) => state.state);
 
-  const { token } = useSelector(
-    (state) => state.auth
-  );
+  const { token } = useSelector((state) => state.auth);
 
-
-
-  const [formData, setFormData] =
-    useState({
-      cityName: "",
-      state: "",
-    });
-
-
+  const [formData, setFormData] = useState({
+    cityName: "",
+    state: "",
+  });
 
   useEffect(() => {
     dispatch(fetchStates());
@@ -44,95 +32,51 @@ const AddCity = () => {
     });
   };
 
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await api.post(
-      "/cities",
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    await api.post("/cities", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     alert("City Added");
   };
 
-
-
   return (
     <div className="max-w-2xl mx-auto py-10">
+      <h1 className="text-3xl font-bold mb-8">Add City</h1>
 
-      <h1 className="text-3xl font-bold mb-8">
-        Add City
-      </h1>
-
-
-
-      <form
-        onSubmit={handleSubmit}
-
-        className="space-y-5"
-      >
-
+      <form onSubmit={handleSubmit} className="space-y-5">
         <input
           type="text"
-
           name="cityName"
-
           placeholder="City Name"
-
           value={formData.cityName}
-
           onChange={handleChange}
-
           className="w-full border p-3 rounded-xl"
         />
 
-
-
         <select
           name="state"
-
           value={formData.state}
-
           onChange={handleChange}
-
           className="w-full border p-3 rounded-xl"
         >
+          <option value="">Select State</option>
 
-          <option value="">
-            Select State
-          </option>
-
-          {
-            states.map((state) => (
-              <option
-                key={state._id}
-
-                value={state._id}
-              >
-                {state.stateName}
-              </option>
-            ))
-          }
-
+          {states.map((state) => (
+            <option key={state._id} value={state._id}>
+              {state.stateName}
+            </option>
+          ))}
         </select>
 
-
-
         <button className="bg-orange-500 text-white px-6 py-3 rounded-xl">
-
           Add City
-
         </button>
-
       </form>
-
     </div>
   );
 };

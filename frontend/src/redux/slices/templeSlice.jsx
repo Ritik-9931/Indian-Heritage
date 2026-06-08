@@ -123,6 +123,47 @@ export const deleteTempleReview = createAsyncThunk(
   },
 );
 
+export const updateTemple = createAsyncThunk(
+  "temple/updateTemple",
+  async ({ id, formData }, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      const { data } = await api.put(`/temples/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log("UPDATE RESPONSE", data);
+
+      return data.temple;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    }
+  },
+);
+
+export const deleteTemple = createAsyncThunk(
+  "temple/deleteTemple",
+  async (id, thunkAPI) => {
+    try {
+      const { auth } = thunkAPI.getState();
+
+      await api.delete(`/temples/${id}`, {
+        headers: {
+          Authorization: `Bearer ${auth.token}`,
+        },
+      });
+
+      return id;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message);
+    }
+  },
+);
+
 const templeSlice = createSlice({
   name: "temple",
 
@@ -203,6 +244,24 @@ const templeSlice = createSlice({
 
       .addCase(deleteTempleReview.fulfilled, (state, action) => {
         state.temple = action.payload;
+      })
+
+      .addCase(updateTemple.fulfilled, (state, action) => {
+        state.loading = false;
+
+        if (Array.isArray(state.temples)) {
+          state.temples = state.temples.map((t) =>
+            t._id === action.payload._id ? action.payload : t,
+          );
+        }
+
+        state.temple = action.payload;
+      })
+
+      .addCase(deleteTemple.fulfilled, (state, action) => {
+        state.temples.data = state.temples.data.filter(
+          (t) => t._id !== action.payload,
+        );
       });
   },
 });

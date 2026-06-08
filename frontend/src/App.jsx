@@ -23,6 +23,17 @@ import About from "./pages/About";
 import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectRoute";
 import Users from "./pages/Users";
+import EditCircuit from "./pages/EditCircuit";
+import EditFestival from "./pages/EditFestival";
+import MangDeity from "./pages/MangDeity";
+import MangRitual from "./pages/MangRitual";
+import MangCity from "./pages/MangCity";
+import MangState from "./pages/MangState";
+import EditDeity from "./pages/EditDeity";
+import EditRitual from "./pages/EditRitual";
+import EditCity from "./pages/EditCity";
+import MangTemple from "./pages/MangTemple";
+import EditTemple from "./pages/EditTemple";
 
 const App = () => {
   const myroutes = createBrowserRouter([
@@ -103,6 +114,22 @@ const App = () => {
           ),
         },
         {
+          path: "admin/edit/temple",
+          element: (
+            <AdminRoute>
+              <MangTemple />
+            </AdminRoute>
+          )
+        },
+        {
+          path: "admin/edit-temple/:id",
+          element: (
+            <AdminRoute>
+              <EditTemple />
+            </AdminRoute>
+          )
+        },
+        {
           path: "admin/add-ritual",
           element: (
             <AdminRoute>
@@ -139,6 +166,76 @@ const App = () => {
           element: (
             <AdminRoute>
               <Users />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/circuits/edit/:id",
+          element: (
+            <AdminRoute>
+              <EditCircuit />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/festivals/edit/:id",
+          element: (
+            <AdminRoute>
+              <EditFestival />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/edit/deity",
+          element: (
+            <AdminRoute>
+              <MangDeity />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/edit-deity/:id",
+          element: (
+            <AdminRoute>
+              <EditDeity />
+            </AdminRoute>
+          )
+        },
+        {
+          path: "admin/edit/ritual",
+          element: (
+            <AdminRoute>
+              <MangRitual />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/edit-ritual/:id",
+          element: (
+            <AdminRoute>
+              <EditRitual />
+            </AdminRoute>
+          )
+        },
+        {
+          path: "admin/edit/city",
+          element: (
+            <AdminRoute>
+              <MangCity />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/edit-city/:id",
+          element: <AdminRoute>
+            <EditCity />
+          </AdminRoute>
+        },
+        {
+          path: "admin/edit/state",
+          element: (
+            <AdminRoute>
+              <MangState />
             </AdminRoute>
           ),
         },

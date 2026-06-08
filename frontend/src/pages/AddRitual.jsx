@@ -21,7 +21,7 @@ const AddRitual = () => {
       ritualName: "",
       description: "",
       timing: "",
-      significance: "",
+      importance: "",
     });
 
   const handleChange = (e) => {
@@ -43,7 +43,7 @@ const AddRitual = () => {
       !formData.ritualName ||
       !formData.description ||
       !formData.timing ||
-      !formData.significance
+      !formData.importance
     ) {
       return alert(
         "Please fill all fields"
@@ -63,7 +63,7 @@ const AddRitual = () => {
         ritualName: "",
         description: "",
         timing: "",
-        significance: "",
+        importance: "",
       });
     } catch (error) {
       alert(
@@ -143,16 +143,16 @@ const AddRitual = () => {
             />
           </div>
 
-          {/* SIGNIFICANCE */}
+          {/* importance */}
           <div>
             <label className="block mb-2 font-medium">
-              Spiritual Significance
+              Spiritual importance
             </label>
 
             <textarea
-              name="significance"
+              name="importance"
               value={
-                formData.significance
+                formData.importance
               }
               onChange={
                 handleChange

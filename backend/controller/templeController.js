@@ -285,20 +285,68 @@ export const updateTemple = async (req, res) => {
       });
     }
 
-    const updatedData = {
-      ...req.body,
-    };
+    let uploadedImages = [];
 
-    if (req.body.templeName) {
-      updatedData.slug = req.body.templeName
-        .toLowerCase()
-        .replace(/\s+/g, "-");
+    // Upload new images
+    if (req.files && req.files.length > 0) {
+      for (const file of req.files) {
+        const uploaded = await cloudinary.uploader.upload(file.path, {
+          folder: "temples",
+        });
+
+        uploadedImages.push({
+          url: uploaded.secure_url,
+          public_id: uploaded.public_id,
+        });
+      }
     }
 
     const updated = await Temple.findByIdAndUpdate(
       req.params.id,
-      updatedData,
-      { new: true }
+      {
+        templeName: req.body.templeName,
+        state: req.body.state,
+        city: req.body.city,
+        deity: req.body.deity,
+        address: req.body.address,
+
+        location: {
+          latitude: req.body.latitude,
+          longitude: req.body.longitude,
+        },
+
+        history: req.body.history,
+        significance: req.body.significance,
+        architecture: req.body.architecture,
+
+        darshanTimings: {
+          morning: req.body.morning,
+          evening: req.body.evening,
+        },
+
+        visitorInfo: {
+          dressCode: req.body.dressCode,
+          entryFee: req.body.entryFee,
+          photographyAllowed: req.body.photographyAllowed,
+        },
+
+        festivals: req.body.festivals || [],
+        rituals: req.body.rituals || [],
+        pilgrimageCircuits: req.body.pilgrimageCircuits || [],
+
+        images:
+          uploadedImages.length > 0
+            ? uploadedImages
+            : JSON.parse(req.body.existingImages || "[]"),
+
+        featured: req.body.featured,
+
+        slug: req.body.templeName?.toLowerCase().replace(/\s+/g, "-"),
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
 
     res.status(200).json({
@@ -306,6 +354,8 @@ export const updateTemple = async (req, res) => {
       temple: updated,
     });
   } catch (error) {
+    console.log(error);
+
     res.status(500).json({
       message: error.message,
     });
