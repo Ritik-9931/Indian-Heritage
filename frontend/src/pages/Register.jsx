@@ -5,20 +5,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 
 import { registerUser } from "../redux/slices/authSlice";
-
-
+import { toast } from "react-toastify";
 
 const Register = () => {
-
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
-
-
-  const { loading, error, user } = useSelector(
-    (state) => state.auth
-  );
+  const { loading, error, user } = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -27,20 +21,9 @@ const Register = () => {
     confirmPassword: "",
   });
 
-
-
-  const {
-    name,
-    email,
-    password,
-    confirmPassword,
-  } = formData;
-
-
+  const { name, email, password, confirmPassword } = formData;
 
   const [passwordError, setPasswordError] = useState("");
-
-
 
   // HANDLE INPUT CHANGE
   const handleChange = (e) => {
@@ -51,10 +34,8 @@ const Register = () => {
     });
   };
 
-
-
   // HANDLE SUBMIT
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // CHECK PASSWORD MATCH
@@ -64,18 +45,20 @@ const Register = () => {
 
     setPasswordError("");
 
-
-
-    dispatch(
-      registerUser({
-        name,
-        email,
-        password,
-      })
-    );
+    try {
+      await dispatch(
+        registerUser({
+          name,
+          email,
+          password,
+        }),
+      ).unwrap();
+      toast.success("Register Successful");
+      navigate("/");
+    } catch (error) {
+      toast.error(error);
+    }
   };
-
-
 
   // REDIRECT AFTER REGISTER
   useEffect(() => {
@@ -84,56 +67,36 @@ const Register = () => {
     }
   }, [user, navigate]);
 
-
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8">
-
         {/* TITLE */}
         <div className="text-center mb-6">
-
-          <h1 className="text-3xl font-bold text-gray-800">
-            Create Account
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-800">Create Account</h1>
 
           <p className="text-gray-500 mt-2">
             Join the India Temple Heritage Portal
           </p>
-
         </div>
 
-
-
         {/* API ERROR */}
-        {
-          error && (
-            <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
-              {error}
-            </div>
-          )
-        }
-
-
+        {error && (
+          <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
+            {error}
+          </div>
+        )}
 
         {/* PASSWORD ERROR */}
-        {
-          passwordError && (
-            <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
-              {passwordError}
-            </div>
-          )
-        }
-
-
+        {passwordError && (
+          <div className="bg-red-100 text-red-600 p-3 rounded-lg mb-4 text-sm">
+            {passwordError}
+          </div>
+        )}
 
         {/* FORM */}
         <form onSubmit={handleSubmit} className="space-y-5">
-
           {/* NAME */}
           <div>
-
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Full Name
             </label>
@@ -143,19 +106,13 @@ const Register = () => {
               name="name"
               value={name}
               onChange={handleChange}
-
               placeholder="Enter your full name"
-
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
             />
-
           </div>
-
-
 
           {/* EMAIL */}
           <div>
-
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
@@ -165,19 +122,13 @@ const Register = () => {
               name="email"
               value={email}
               onChange={handleChange}
-
               placeholder="Enter your email"
-
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
             />
-
           </div>
-
-
 
           {/* PASSWORD */}
           <div>
-
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Password
             </label>
@@ -187,19 +138,13 @@ const Register = () => {
               name="password"
               value={password}
               onChange={handleChange}
-
               placeholder="Enter your password"
-
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
             />
-
           </div>
-
-
 
           {/* CONFIRM PASSWORD */}
           <div>
-
             <label className="block text-sm font-medium text-gray-700 mb-1">
               Confirm Password
             </label>
@@ -209,50 +154,32 @@ const Register = () => {
               name="confirmPassword"
               value={confirmPassword}
               onChange={handleChange}
-
               placeholder="Confirm your password"
-
               className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-orange-400"
             />
-
           </div>
-
-
 
           {/* BUTTON */}
           <button
             type="submit"
-
             disabled={loading}
-
             className="w-full bg-orange-500 hover:bg-orange-600 transition-all duration-300 text-white py-3 rounded-xl font-semibold"
           >
-            {
-              loading ? "Creating Account..." : "Register"
-            }
+            {loading ? "Creating Account..." : "Register"}
           </button>
-
         </form>
-
-
 
         {/* LOGIN LINK */}
         <p className="text-center text-sm text-gray-600 mt-6">
-
           Already have an account?
-
           <Link
             to="/login"
-
             className="text-orange-500 font-semibold ml-1 hover:underline"
           >
             Login
           </Link>
-
         </p>
-
       </div>
-
     </div>
   );
 };

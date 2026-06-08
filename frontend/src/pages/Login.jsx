@@ -10,6 +10,8 @@ import { GoogleLogin } from "@react-oauth/google";
 
 import { googleLogin } from "../redux/slices/authSlice";
 
+import { toast } from "react-toastify";
+
 const Login = () => {
   const dispatch = useDispatch();
 
@@ -34,15 +36,22 @@ const Login = () => {
   };
 
   // HANDLE FORM SUBMIT
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(
-      loginUser({
-        email,
-        password,
-      }),
-    );
+    try {
+      await dispatch(
+        loginUser({
+          email,
+          password,
+        }),
+      ).unwrap();
+
+      toast.success("Login successFul");
+      navigate("/");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   // REDIRECT AFTER LOGIN
@@ -127,8 +136,16 @@ const Login = () => {
         {/* GOOGLE LOGIN */}
         <div className="flex justify-center">
           <GoogleLogin
-            onSuccess={(credentialResponse) => {
-              dispatch(googleLogin(credentialResponse.credential));
+            onSuccess={async (credentialResponse) => {
+              try {
+                await dispatch(
+                  googleLogin(credentialResponse.credential),
+                ).unwrap();
+                toast.success("Google Login Successful");
+                navigate("/");
+              } catch (error) {
+                toast.error("Google Login Failed");
+              }
             }}
             onError={() => {
               console.log("Google Login Failed");
