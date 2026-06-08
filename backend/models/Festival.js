@@ -11,6 +11,7 @@ const festivalSchema = new mongoose.Schema(
     slug: {
       type: String,
       unique: true,
+      require: true,
     },
 
     description: {
@@ -34,7 +35,7 @@ const festivalSchema = new mongoose.Schema(
       public_id: String,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 export default mongoose.model("Festival", festivalSchema);

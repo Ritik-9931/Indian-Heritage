@@ -24,7 +24,7 @@ router.post("/:id/review", protect, addReview);
 
 router.delete("/:id/review/:reviewId", protect, deleteReview);
 
-router.put("/:id", protect, admin, updateTemple);
+router.put("/:id", protect, admin, upload.array("images", 20), updateTemple);
 
 router.delete("/:id", protect, admin, deleteTemple);
 
