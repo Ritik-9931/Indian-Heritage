@@ -32,6 +32,7 @@ app.use(
       "http://localhost:5173",
       "http://127.0.0.1:5173",
       "https://indianheritage-f8j0ke1ya-ritik-9931s-projects.vercel.app",
+      "https://indianheritage-nine.vercel.app",
     ],
     credentials: true,
   }),
