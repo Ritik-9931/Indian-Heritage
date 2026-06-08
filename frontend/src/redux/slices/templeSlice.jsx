@@ -135,9 +135,6 @@ export const updateTemple = createAsyncThunk(
           "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log("UPDATE RESPONSE", data);
-
       return data.temple;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message);

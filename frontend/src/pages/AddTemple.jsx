@@ -17,9 +17,12 @@ import { fetchCircuits } from "../redux/slices/circuitSlice";
 import { fetchRituals } from "../redux/slices/ritualSlice";
 
 import api from "../services/Api";
+import { useNavigate } from "react-router-dom";
 
 const AddTemple = () => {
   const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const { token } = useSelector((state) => state.auth);
 
@@ -310,6 +313,7 @@ const AddTemple = () => {
 
         featured: false,
       });
+      navigate(-1);
     } catch (error) {
       console.log(error);
 

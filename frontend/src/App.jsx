@@ -34,6 +34,8 @@ import EditRitual from "./pages/EditRitual";
 import EditCity from "./pages/EditCity";
 import MangTemple from "./pages/MangTemple";
 import EditTemple from "./pages/EditTemple";
+import MangCircuit from "./pages/MangCircuit";
+import MangFestival from "./pages/MangFestival";
 
 const App = () => {
   const myroutes = createBrowserRouter([
@@ -119,7 +121,7 @@ const App = () => {
             <AdminRoute>
               <MangTemple />
             </AdminRoute>
-          )
+          ),
         },
         {
           path: "admin/edit-temple/:id",
@@ -127,7 +129,7 @@ const App = () => {
             <AdminRoute>
               <EditTemple />
             </AdminRoute>
-          )
+          ),
         },
         {
           path: "admin/add-ritual",
@@ -178,10 +180,26 @@ const App = () => {
           ),
         },
         {
+          path: "admin/edit/circuit",
+          element: (
+            <AdminRoute>
+              <MangCircuit />
+            </AdminRoute>
+          ),
+        },
+        {
           path: "admin/festivals/edit/:id",
           element: (
             <AdminRoute>
               <EditFestival />
+            </AdminRoute>
+          ),
+        },
+        {
+          path: "admin/edit/festival",
+          element: (
+            <AdminRoute>
+              <MangFestival />
             </AdminRoute>
           ),
         },
@@ -199,7 +217,7 @@ const App = () => {
             <AdminRoute>
               <EditDeity />
             </AdminRoute>
-          )
+          ),
         },
         {
           path: "admin/edit/ritual",
@@ -215,7 +233,7 @@ const App = () => {
             <AdminRoute>
               <EditRitual />
             </AdminRoute>
-          )
+          ),
         },
         {
           path: "admin/edit/city",
@@ -227,9 +245,11 @@ const App = () => {
         },
         {
           path: "admin/edit-city/:id",
-          element: <AdminRoute>
-            <EditCity />
-          </AdminRoute>
+          element: (
+            <AdminRoute>
+              <EditCity />
+            </AdminRoute>
+          ),
         },
         {
           path: "admin/edit/state",

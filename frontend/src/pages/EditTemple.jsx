@@ -37,6 +37,12 @@ const EditTemple = () => {
     dispatch(fetchRituals());
   }, [id, dispatch]);
 
+  useEffect(() => {
+    if (temple?.state?._id) {
+      dispatch(fetchCitiesByState(temple.state._id));
+    }
+  }, [temple, dispatch]);
+
   // SET DATA
   useEffect(() => {
     if (temple) {
@@ -144,7 +150,9 @@ const EditTemple = () => {
 
     data.append("templeName", formData.templeName);
     data.append("state", formData.state);
-    data.append("city", formData.city);
+    if (formData.city) {
+      data.append("city", formData.city);
+    }
     data.append("deity", formData.deity);
     data.append("address", formData.address);
 

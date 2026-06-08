@@ -83,7 +83,7 @@ const EditCircuit = () => {
 
       alert("Circuit updated successfully");
 
-      navigate("/circuits");
+      navigate(-1);
     } catch (err) {
       alert(err || "Failed to update circuit");
     }

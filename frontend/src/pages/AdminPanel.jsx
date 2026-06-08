@@ -29,25 +29,25 @@ const AdminPanel = () => {
     },
 
     {
-      title: "Add Festival",
+      title: "Manage Festival",
 
       description: "Create festivals and ritual events",
 
       icon: <CalendarDays size={40} />,
 
-      link: "/admin/add-festival",
+      link: "/admin/edit/festival",
 
       color: "from-green-500 to-emerald-500",
     },
 
     {
-      title: "Add Circuit",
+      title: "Manage Circuit",
 
       description: "Manage pilgrimage circuits and routes",
 
       icon: <Route size={40} />,
 
-      link: "/admin/add-circuit",
+      link: "/admin/edit/circuit",
 
       color: "from-purple-500 to-violet-500",
     },
