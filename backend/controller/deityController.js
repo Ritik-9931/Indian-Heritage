@@ -1,6 +1,7 @@
 // controllers/deityController.js
 
 import Deity from "../models/Deity.js";
+import slugify from "slugify";
 
 // CREATE DEITY
 export const createDeity = async (req, res) => {
