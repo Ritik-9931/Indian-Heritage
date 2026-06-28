@@ -36,6 +36,8 @@ import MangTemple from "./pages/MangTemple";
 import EditTemple from "./pages/EditTemple";
 import MangCircuit from "./pages/MangCircuit";
 import MangFestival from "./pages/MangFestival";
+import OTPSystem from "./components/OTPSystem";
+import UpdateUser from "./pages/UpdateUser";
 
 const App = () => {
   const myroutes = createBrowserRouter([
@@ -268,6 +270,18 @@ const App = () => {
     {
       path: "register",
       element: <Register />,
+    },
+    {
+      path: "otp-generate",
+      element: <OTPSystem />,
+    },
+    {
+      path: "updatePass",
+      element: (
+        <OTPProtectedRoute>
+          <UpdateUser />
+        </OTPProtectedRoute>
+      ),
     },
   ]);
   return <RouterProvider router={myroutes} />;

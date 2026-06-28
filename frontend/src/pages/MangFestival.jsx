@@ -1,49 +1,35 @@
-import React, { useEffect } from "react";
-import {
-  useDispatch,
-  useSelector,
-} from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-import {
-  useNavigate,
-} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-import {
-  deleteFestival,
-  fetchFestivals,
-} from "../redux/slices/festivalSlice";
+import { deleteFestival, fetchFestivals } from "../redux/slices/festivalSlice";
 
-import {
-  Plus,
-  Pencil,
-  Trash2,
-  CalendarDays,
-  Sparkles,
-} from "lucide-react";
+import { Plus, Pencil, Trash2, CalendarDays, Sparkles } from "lucide-react";
+
+import { Search } from "lucide-react";
 
 const MangFestival = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { festivals = [] } =
-    useSelector(
-      (state) => state.festival
-    );
+  const [search, setSearch] = useState("");
+
+  const { festivals = [] } = useSelector((state) => state.festival);
 
   useEffect(() => {
     dispatch(fetchFestivals());
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    if (
-      window.confirm(
-        "Delete this festival?"
-      )
-    ) {
+    if (window.confirm("Delete this festival?")) {
       dispatch(deleteFestival(id));
     }
   };
 
+  const filterFestival = festivals.filter((festival) =>
+    festival.festivalName.toLowerCase().includes(search.toLowerCase()),
+  );
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       {/* Header */}
@@ -59,11 +45,7 @@ const MangFestival = () => {
         </div>
 
         <button
-          onClick={() =>
-            navigate(
-              "/admin/add-festival"
-            )
-          }
+          onClick={() => navigate("/admin/add-festival")}
           className="mt-4 md:mt-0 flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-5 py-3 rounded-xl transition"
         >
           <Plus size={18} />
@@ -71,21 +53,29 @@ const MangFestival = () => {
         </button>
       </div>
 
+      <div className="relative w-full max-w-md">
+        <Search
+          size={18}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        />
+
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search states..."
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        />
+      </div>
+
       {/* Empty State */}
-      {festivals.length === 0 && (
+      {filterFestival.length === 0 && (
         <div className="bg-white rounded-2xl shadow-md p-12 text-center">
-          <Sparkles
-            size={60}
-            className="mx-auto text-gray-400"
-          />
+          <Sparkles size={60} className="mx-auto text-gray-400" />
 
-          <h2 className="text-2xl font-semibold mt-4">
-            No Festivals Found
-          </h2>
+          <h2 className="text-2xl font-semibold mt-4">No Festivals Found</h2>
 
-          <p className="text-gray-500 mt-2">
-            Create your first festival.
-          </p>
+          <p className="text-gray-500 mt-2">Create your first festival.</p>
         </div>
       )}
 
@@ -114,10 +104,7 @@ const MangFestival = () => {
                   <CalendarDays size={16} />
 
                   <span>
-                    Start:{" "}
-                    {new Date(
-                      festival.startDate
-                    ).toLocaleDateString()}
+                    Start: {new Date(festival.startDate).toLocaleDateString()}
                   </span>
                 </div>
 
@@ -125,10 +112,7 @@ const MangFestival = () => {
                   <CalendarDays size={16} />
 
                   <span>
-                    End:{" "}
-                    {new Date(
-                      festival.endDate
-                    ).toLocaleDateString()}
+                    End: {new Date(festival.endDate).toLocaleDateString()}
                   </span>
                 </div>
               </div>
@@ -143,9 +127,7 @@ const MangFestival = () => {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() =>
-                    navigate(
-                      `/admin/festivals/edit/${festival._id}`
-                    )
+                    navigate(`/admin/festivals/edit/${festival._id}`)
                   }
                   className="flex-1 flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition"
                 >
@@ -154,11 +136,7 @@ const MangFestival = () => {
                 </button>
 
                 <button
-                  onClick={() =>
-                    handleDelete(
-                      festival._id
-                    )
-                  }
+                  onClick={() => handleDelete(festival._id)}
                   className="flex-1 flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg transition"
                 >
                   <Trash2 size={16} />

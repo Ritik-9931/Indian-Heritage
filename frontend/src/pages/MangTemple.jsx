@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,16 @@ import { fetchTemples, deleteTemple } from "../redux/slices/templeSlice";
 
 import { MapPin, Pencil, Trash2, Plus, Landmark } from "lucide-react";
 
+import { Search } from "lucide-react";
+
 const MangTemple = () => {
   const dispatch = useDispatch();
 
   const navigate = useNavigate();
 
   const { temples = [], loading } = useSelector((state) => state.temple);
+
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(fetchTemples({}));
@@ -26,6 +30,12 @@ const MangTemple = () => {
     }
   };
 
+  let filterTemple = [];
+
+  filterTemple = temples?.data?.filter((temple) =>
+    temple.templeName.toLowerCase().includes(search.toLowerCase()),
+  );
+  
   return (
     <div className="min-h-screen bg-slate-100 p-6">
       {/* HEADER */}
@@ -49,6 +59,21 @@ const MangTemple = () => {
         </button>
       </div>
 
+      <div className="relative w-full max-w-md">
+        <Search
+          size={18}
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+        />
+
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search states..."
+          className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+        />
+      </div>
+
       {/* LOADING */}
       {loading && (
         <div className="flex justify-center py-20">
@@ -69,7 +94,7 @@ const MangTemple = () => {
 
       {/* TEMPLE GRID */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {temples?.data?.map((temple) => (
+        {filterTemple?.map((temple) => (
           <div
             key={temple._id}
             className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition duration-300"
