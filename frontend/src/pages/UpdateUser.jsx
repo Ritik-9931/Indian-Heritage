@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { Eye, EyeOff, Lock } from "lucide-react";
-import Api from "../services/api";
+import Api from "../services/Api";
 
 const UpdateUser = () => {
   const location = useLocation();

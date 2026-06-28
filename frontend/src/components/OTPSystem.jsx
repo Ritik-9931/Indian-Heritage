@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Api from "../services/api";
+import Api from "../services/Api";
 
 const OTPSystem = () => {
   const navigate = useNavigate();
