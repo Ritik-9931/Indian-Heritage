@@ -153,9 +153,7 @@ const EditTemple = () => {
     if (formData.city) {
       data.append("city", formData.city);
     }
-    if (selectedDeity) {
-      formData.append("deity", selectedDeity);
-    }
+    data.append("deity", formData.deity);
     data.append("address", formData.address);
 
     data.append("latitude", formData.location.latitude);
@@ -237,12 +235,9 @@ const EditTemple = () => {
               ))}
             </select>
 
-            <select
-              name="deity"
-              value={formData.deity}
-              onChange={handleChange}
-              className="border p-3 rounded-lg"
-            >
+            <select name="deity" value={formData.deity} onChange={handleChange}>
+              <option value="">Select Deity</option>
+
               {deities.map((d) => (
                 <option key={d._id} value={d._id}>
                   {d.deityName}
