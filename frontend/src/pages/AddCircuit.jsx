@@ -75,7 +75,7 @@ const AddCircuit = () => {
 
       alert("Circuit Created Successfully");
 
-      navigate("/admin/circuits");
+      navigate(-1);
     } catch (error) {
       console.log(error.response?.data);
 
