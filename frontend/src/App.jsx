@@ -38,6 +38,7 @@ import MangCircuit from "./pages/MangCircuit";
 import MangFestival from "./pages/MangFestival";
 import OTPSystem from "./components/OTPSystem";
 import UpdateUser from "./pages/UpdateUser";
+import OTPProtectedRoute from "./routes/OTPProtectedRoute";
 
 const App = () => {
   const myroutes = createBrowserRouter([
