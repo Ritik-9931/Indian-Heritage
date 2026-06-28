@@ -57,6 +57,16 @@ const userSchema = new mongoose.Schema(
       enum: ["local", "google"],
       default: "local",
     },
+
+    otp: {
+      type: String,
+      default: null,
+    },
+
+    otpExpire: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true },
 );

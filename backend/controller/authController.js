@@ -2,6 +2,8 @@ import { OAuth2Client } from "google-auth-library";
 import User from "../models/User.js";
 import generateToken from "../utils/generateToken.js";
 import bcrypt from "bcryptjs";
+import otpGenerator from "otp-generator";
+import sendEmail from "../utils/sendEmail.js";
 
 export const registerUSer = async (req, res, next) => {
   try {
