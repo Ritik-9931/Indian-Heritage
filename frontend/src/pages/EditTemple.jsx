@@ -153,7 +153,9 @@ const EditTemple = () => {
     if (formData.city) {
       data.append("city", formData.city);
     }
-    data.append("deity", formData.deity);
+    if (selectedDeity) {
+      formData.append("deity", selectedDeity);
+    }
     data.append("address", formData.address);
 
     data.append("latitude", formData.location.latitude);
