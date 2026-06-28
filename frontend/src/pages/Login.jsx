@@ -114,6 +114,16 @@ const Login = () => {
             />
           </div>
 
+          <p className="text-right text-sm">
+            Forgot your password?{" "}
+            <b
+              className="cursor-pointer text-blue-800"
+              onClick={() => navigate(`/otp-generate`)}
+            >
+              Reset Password
+            </b>
+          </p>
+
           {/* BUTTON */}
           <button
             type="submit"
