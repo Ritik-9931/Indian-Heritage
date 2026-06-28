@@ -42,7 +42,7 @@ const OTPSystem = () => {
     try {
       setLoading(true);
 
-      const res = await API.post("/auth/verifyOTP", {
+      const res = await Api.post("/auth/verifyOTP", {
         email,
         otp,
       });
