@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import API from "../services/api";
 import { useNavigate } from "react-router-dom";
+import Api from "../services/api";
 
 const OTPSystem = () => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const OTPSystem = () => {
 
     try {
       setLoading(true);
-      const res = await API.post("/auth/sendOTP", { email });
+      const res = await Api.post("/auth/sendOTP", { email });
       alert(res.data.message);
       setStep(2);
     } catch (error) {

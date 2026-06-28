@@ -2,9 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import { useLocation, useNavigate } from "react-router-dom";
 
-import API from "../services/api";
-
 import { Eye, EyeOff, Lock } from "lucide-react";
+import Api from "../services/api";
 
 const UpdateUser = () => {
   const location = useLocation();
@@ -57,7 +56,7 @@ const UpdateUser = () => {
     try {
       setLoading(true);
 
-      const res = await API.put("/auth/updatePassword", {
+      const res = await Api.put("/auth/updatePassword", {
         email,
         password,
       });
